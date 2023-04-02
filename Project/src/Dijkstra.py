@@ -30,7 +30,13 @@ class Dijkstra:
         return None
 
     def get_distances(self):
-        return self.search(self.graph, self.start, self.goal)[1]
+        try:
+            return self.search(self.graph, self.start, self.goal)[1]
+        except:
+            return None
 
     def get_path(self):
-        return self.search(self.graph, self.start, self.goal)[0]
+        try:
+            return self.search(self.graph, self.start, self.goal)[0]
+        except:
+            return None

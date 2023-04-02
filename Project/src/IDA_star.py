@@ -36,7 +36,10 @@ class IDA_star:
         return min_val, min_path
 
     def get_path(self):
-        return self.ida_star(self.graph, self.start, self.goal)[1]
+        try:
+            return self.ida_star(self.graph, self.start, self.goal)[1]
+        except:
+            return None
 
     def get_total_cost(self):
         return self.ida_star(self.graph, self.start, self.goal)[0]
