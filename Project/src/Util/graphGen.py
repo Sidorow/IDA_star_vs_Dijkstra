@@ -69,13 +69,6 @@ class graphGen:
 
     def gen_graph_plot(self, graph, coordinates, path):
         nx_graph = nx.DiGraph()
-        algo_edges = None
-        if path != None:
-            try:
-                algo_edges = [[path[i], path[i+1]]
-                        for i in range(len(path)-1)]
-            except:
-                print("No path")
 
         for node in graph.keys():
             nx_graph.add_node(node, pos=coordinates[node])
@@ -85,6 +78,13 @@ class graphGen:
                 nx_graph.add_edge(node, neighbor, weight=weight)
 
         pos = nx.get_node_attributes(nx_graph, 'pos')
+
+        try:
+            algo_edges = [[path[i], path[i+1]]
+                        for i in range(len(path)-1)]
+        except:
+            print("No path")
+            algo_edges = None
 
         options = {
             "node_color": "#A0CBE2",

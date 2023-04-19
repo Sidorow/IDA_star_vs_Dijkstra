@@ -3,7 +3,7 @@ from IDA_star import IDA_star
 from graphGen import graphGen
 
 def main():
-    graphgen_obj = graphGen(10,14) # Graph generator object
+    graphgen_obj = graphGen(7,10) # Graph generator object
     fixed_graph = graphgen_obj.get_fixed_graph() # Fixed graph for easy illustration purposes
     random_graph = graphgen_obj.gen_random_graph()
 
