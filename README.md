@@ -14,3 +14,14 @@
 poetry install
 '''
  
+## Käynnistäminen
+
+'''bash
+poetry run invoke start
+'''
+
+## Testit
+
+'''bash
+poetry run invoke test
+'''
