@@ -6,4 +6,11 @@
 
 [Toteutus](https://github.com/Sidorow/IDA_star_vs_Dijkstra/blob/main/Dokumentaatio/toteutus.md)
 
-[Käyttöohje](https://github.com/Sidorow/IDA_star_vs_Dijkstra/blob/main/Dokumentaatio/kayttoohje.md)
+## Käyttöohjeet:
+
+## Asennus
+
+'''bash
+poetry install
+'''
+ 
