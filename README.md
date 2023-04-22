@@ -10,18 +10,18 @@
 
 ## Asennus
 
-'''bash
+```bash
 poetry install
-'''
+```
  
 ## Käynnistäminen
 
-'''bash
+```bash
 poetry run invoke start
-'''
+```
 
 ## Testit
 
-'''bash
+```bash
 poetry run invoke test
-'''
+```
