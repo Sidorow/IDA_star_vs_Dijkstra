@@ -7,6 +7,8 @@ class graphGen:
     def __init__(self, nodes, edges):
         self.nodes = nodes
         self.edges = edges
+        self.nx_graph = nx.DiGraph()
+        self.pos = None
 
     def euclidean_distance(self, coord1, coord2):
         return math.sqrt((coord1[0] - coord2[0]) ** 2 + (coord1[1] - coord2[1]) ** 2)
@@ -19,12 +21,18 @@ class graphGen:
         return graph
 
     def gen_coordinates(self, graph):
-        coord_dict = {}
-        for key in graph.keys():
-            rand1 = random.randint(-10,10)
-            rand2 = random.randint(-10,10)
-            coord_dict[key] = (rand1,rand2)
-        return coord_dict
+        for node in graph.keys():
+           self.nx_graph.add_node(node)
+
+        self.pos = nx.fruchterman_reingold_layout(self.nx_graph)
+
+        coords = {node: self.pos[node] for node in self.nx_graph.nodes()}
+        coord_tuple = {}
+        for key, value in coords.items():
+            coord_tuple[key] = (round(value[0],2), round(value[1],2))
+
+        graph = self.gen_weights(graph,coord_tuple)
+        return graph, coord_tuple
 
     def gen_random_graph(self):
         graph = {}
@@ -40,10 +48,8 @@ class graphGen:
                 graph[node1][node2] = 0
                 edge_count += 1
 
-        coords = self.gen_coordinates(graph)
-        ready_graph = self.gen_weights(graph, coords)
-
-        return ready_graph, coords
+        ready_graph, coordinates = self.gen_coordinates(graph)
+        return ready_graph, coordinates
 
     def get_fixed_graph(self):
         graph = {
@@ -56,28 +62,18 @@ class graphGen:
             'G': {}
         }
 
-        coordinates = {
-            'A': (0, 0),
-            'B': (1, 1),
-            'C': (1, -1),
-            'D': (-1, 1),
-            'E': (2, 0),
-            'F': (0, -2),
-            'G': (3, 0)
-        }
-        return graph, coordinates
+        weighted_graph, coordinates = self.gen_coordinates(graph)
+        return weighted_graph, coordinates
 
     def gen_graph_plot(self, graph, coordinates, path):
-        nx_graph = nx.DiGraph()
-
         for node in graph.keys():
-            nx_graph.add_node(node, pos=coordinates[node])
+            self.pos[node] = coordinates[node]
+
+        pos = self.pos
 
         for node, neighbors in graph.items():
             for neighbor, weight in neighbors.items():
-                nx_graph.add_edge(node, neighbor, weight=weight)
-
-        pos = nx.get_node_attributes(nx_graph, 'pos')
+                self.nx_graph.add_edge(node, neighbor, weight=weight)
 
         try:
             algo_edges = [[path[i], path[i+1]]
@@ -93,10 +89,11 @@ class graphGen:
             "arrowsize": 10
         }
 
-        labels = nx.get_edge_attributes(nx_graph, 'weight')
+        labels = nx.get_edge_attributes(self.nx_graph, 'weight')
 
-        nx.draw(nx_graph, pos, with_labels=True, **options)
-        nx.draw_networkx_edges(nx_graph, pos, edgelist=algo_edges, edge_color='r', width=3, arrowsize=12)
-        nx.draw_networkx_edge_labels(nx_graph, pos, edge_labels=labels)
-
+        plt.figure(figsize=(15,12))
+        nx.draw(self.nx_graph, pos=self.pos, with_labels=True, **options)
+        if algo_edges:
+            nx.draw_networkx_edges(self.nx_graph, pos, edgelist=algo_edges, edge_color='r', width=3, arrowsize=12)
+        nx.draw_networkx_edge_labels(self.nx_graph, pos, edge_labels=labels)
         plt.show()

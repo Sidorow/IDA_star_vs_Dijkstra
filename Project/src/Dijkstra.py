@@ -1,4 +1,3 @@
-import heapq
 from heap import MinHeap
 
 class Dijkstra:
@@ -14,10 +13,8 @@ class Dijkstra:
         nodes = (0,start)
         pq = MinHeap()
         pq.push(nodes)
-        #pq = [(0, start)]
         while pq:
             (dist, node) = pq.pop()
-            #(dist, node) = heapq.heappop(pq)
             if node == goal:
                 path = []
                 while node is not None:
@@ -32,7 +29,6 @@ class Dijkstra:
                     distances[neighbor] = new_dist
                     predecessors[neighbor] = node
                     pq.push((new_dist, neighbor))
-                    #heapq.heappush(pq, (new_dist, neighbor))
         return None
 
     def get_distances(self):

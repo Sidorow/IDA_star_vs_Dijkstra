@@ -4,7 +4,7 @@ from graphGen import graphGen
 
 class UI:
     def __init__(self):
-        self.graphgen = graphGen(7,10)
+        self.graphgen = graphGen(7,14)
         self.graph = self.graphgen.get_fixed_graph()
         self.start = "A"
         self.goal = "G"
@@ -40,11 +40,12 @@ class UI:
         try:
             dijkstra = Dijkstra(self.graph[0], self.start, self.goal)
             ida = IDA_star(self.graph[0], self.graph[1], self.start, self.goal)
-            path = ida.get_path()
-            print(f"Shortest path from {self.start} to {self.goal} = {path}")
-            self.graphgen.gen_graph_plot(self.graph[0], self.graph[1], path)
+            path_D = dijkstra.get_path()
+            path_IDA = ida.get_path()
+            print(f"Shortest path from {self.start} to {self.goal} = {path_IDA}")
+            self.graphgen.gen_graph_plot(self.graph[0], self.graph[1], path_IDA)
         except:
-            print("Error")
+            print("No path")
 
 
     def initialize(self):
