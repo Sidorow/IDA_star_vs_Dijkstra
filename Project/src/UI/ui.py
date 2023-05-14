@@ -97,7 +97,7 @@ class UI:
             cmd = input("Input command, 'exit' to close, 'help' for a list of commands" + "\n")
             if cmd == "exit":
                 break
-            if cmd in self.commands:
+            elif cmd in self.commands:
                 func = f"self.{cmd}()"
                 exec(func)
             else:

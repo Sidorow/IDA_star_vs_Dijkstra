@@ -19,7 +19,7 @@ class IDA_star:
             distance, path = self.search(graph, start, goal, 0, bound, [start])
             if distance == float('inf'):
                 return -1, None
-            if distance < 0:
+            elif distance < 0:
                 return -distance, path
             else:
                 bound = distance
@@ -37,7 +37,7 @@ class IDA_star:
             val, t_path = self.search(graph, neighbor, goal, distance+cost['weight'], bound, new_path)
             if val < 0:
                 return val, t_path
-            if val < min_val:
+            elif val < min_val:
                 min_val = val
                 min_path = new_path
         return min_val, min_path
