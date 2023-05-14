@@ -1,0 +1,3 @@
+[run]
+source = Project/src
+omit = Project/src/**/__init__.py,Project/src/**/index.py,Project/src/**/Dijkstra.py,Project/src/**/IDA_star.py,Project/src/**/util/graphGen.py,Project/src/UI/ui.py,Project/src/**/util/heap.py,Project/src/**/util/analysis.py
