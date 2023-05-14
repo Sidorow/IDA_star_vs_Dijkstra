@@ -10,7 +10,7 @@ Työssä toteutetaan IDA* ja Dijkstran algoritmi. Tietorakenteina toimivat Pytho
 
 Ongelmana toimii painotettu verkko, josta halutaan päästä lyhimmällä polulla pisteestä X pisteeseen Y. Olen ennen tutustunut A* -algoritmiin, joten tälle sukua oleva IDA* kiinnostaa. Syötteenä ohjelma saa verkon (random generoitu), josta se pyrkii löytämään lyhimmän/halvimman polun pisteestä pisteeseen. Ohjelma toteuttaa samalle verkolle sekä IDA*- että Dijkstran algoritmin, joista sitten otetaan ulos mm aika ja käytyjen solmujen määrä ja myös jonkinlainen visuaalinen representaatio läpikäydystä polusta.
 
-## Aika- ja tilavaativuudet
+## Tavoitteena olevat aika- ja tilavaativuudet
 
 ### IDA*
 
@@ -23,7 +23,7 @@ Ongelmana toimii painotettu verkko, josta halutaan päästä lyhimmällä polull
 ### Dijkstra
 
 - Aikavaativuus
-	- O(n + m log n)
+	- O(n + m log m)
 
 - Tilavaativuus
 	- O(n2)
@@ -33,11 +33,3 @@ Ongelmana toimii painotettu verkko, josta halutaan päästä lyhimmällä polull
 - Opinto-ohjelma tietojenkäsittelytieteen kandidaatti (TKT)
 
 - Projektin kieli Suomi
-
-## Lähteet
-
-https://en.wikipedia.org/wiki/Iterative_deepening_A*#Properties
-
-https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search#Time_complexity
-
-Tietorakenteet ja Algoritmit -kurssikirja

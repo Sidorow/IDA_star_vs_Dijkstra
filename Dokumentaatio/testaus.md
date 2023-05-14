@@ -5,11 +5,9 @@
 
 ## Mitä testattu?
 
-- Molempia algoritmeja, jotta ne palauttavat esimerkkiverkosta oikean lyhimmmän polun. Dijkstralla myös solmujen oikeat etäisyydet.
+- Molempia algoritmeja, jotta ne palauttavat testiverkosta oikean lyhimmmän polun. Dijkstralla myös solmujen oikeat etäisyydet.
 
 - Kekoa/prioriteettijonoa, jotta tästä saadaan aina pienin arvo ulos.
-
-- Verkkogeneraattori WIP
 
 ## Toistettavuus
 
@@ -27,4 +25,4 @@ Ensin on testattu Dijkstran ja IDA*:in suorituskykyä satunnaisesti generoidulla
 
 ![testshort](screenshots/testrandom.png)
 
-Toiseksi on ohjelman sisäisellä automaattisella testillä toteutettu vertailu. Verkko on täysin satunnainen eli solmut ja niiden väliset kaaret on sattumanvaraisia. Lopputuloksena on usein verkko jonka solmujen väliset polut ovat suhteellisen lyhyitä. Pienemmillä solmumäärillä Dijkstra suorituu paremmin, mutta solmujen määrän kasvaessa IDA*:in heuristiikkafunktio ohjaa polun hakua oikeampaan suuntaan välttäen turhien solmujen läpikäymisen. Verkoilla, joiden solmujen aste on pieni ja/tai kaaret vievät polkua väärään suuntaan, hidastavat nopeasti IDA*:in nopeutta.
+Toiseksi on ohjelman sisäisellä automaattisella testillä toteutettu vertailu. Verkko on täysin satunnainen eli solmut ja niiden väliset kaaret on sattumanvaraisia. Lopputuloksena on usein verkko jonka solmujen väliset polut ovat suhteellisen lyhyitä. Pienemmillä solmumäärillä Dijkstra suorituu paremmin, mutta solmujen määrän kasvaessa IDA*:in heuristiikkafunktio ohjaa polun hakua oikeampaan suuntaan välttäen turhien solmujen läpikäymisen. Verkoilla, joiden solmujen aste on pieni ja/tai kaaret vievät polkua väärään suuntaan, hidastavat nopeasti IDA*:in suorituskykyä.
