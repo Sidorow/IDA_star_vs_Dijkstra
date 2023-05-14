@@ -29,6 +29,7 @@ Kirjoittamalla konsoliin "help" saa listan käytettävistä komennoista.
 - "choose": Ottaa numeromuotoisen syötteen konsolista lähtösolmulle ja maalisolmulle.
 - "path": Piirtää ruudulle kuvan nykyisestä verkosta ja korostaa punaisella lyhimmän löydetyn reitin ja tulostaa konsoliin algoritmien ajoajat. Ajat myös tallennetaan listalle.
 - "times": Tulostaa konsoliin molempien algoritmien ajoaikojen keskiarvot. "path" -komennolla voidaan tallentaa aikoja.
+- "clear": Tyhjentää aikalistan.
 - "compare": Vertailee alogoritmien ajoaikoja täysin satunnaistetuissa verkoissa nostaen solmujen määrää askeleittain. Polut ovat suhteellisen lyhyitä. 
 
 ## Testit
