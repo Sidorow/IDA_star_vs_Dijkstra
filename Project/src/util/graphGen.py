@@ -127,6 +127,6 @@ class graphGen:
         plt.figure(figsize=(11,8))
         nx.draw(self.nx_graph, pos, with_labels=True, **options)
         if algo_edges:
-            nx.draw_networkx_edges(self.nx_graph, pos, edgelist=algo_edges, edge_color='r', width=3) #arrowsize=12)
+            nx.draw_networkx_edges(self.nx_graph, pos, edgelist=algo_edges, edge_color='r', width=3, arrowsize=12)
         nx.draw_networkx_edge_labels(self.nx_graph, pos, edge_labels=labels, font_size=7)
         plt.show()
