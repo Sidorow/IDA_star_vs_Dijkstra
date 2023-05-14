@@ -1,4 +1,9 @@
 class MinHeap:
+    """
+    Minimikeko Dijkstran algoritmille.
+    Käytetään prioriteettijonon tavoin.
+    """
+    
     def __init__(self):
         self.heap = []
 

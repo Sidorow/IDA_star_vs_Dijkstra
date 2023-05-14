@@ -1,6 +1,11 @@
-from heap import MinHeap
+from util.heap import MinHeap
 
 class Dijkstra:
+    """
+    Dijkstran algoritmin implementaatio.
+    Palauttaa listan läpikäydyistä solmuista.
+    """
+    
     def __init__(self, graph, start, goal):
         self.graph = graph
         self.start = start
@@ -20,25 +25,19 @@ class Dijkstra:
                 while node is not None:
                     path.append(node)
                     node = predecessors[node]
-                return path[::-1], distances
+                return path[::-1]
             if dist > distances[node]:
                 continue
             for neighbor, cost in graph[node].items():
-                new_dist = dist + cost
+                new_dist = dist + cost['weight']
                 if new_dist < distances[neighbor]:
                     distances[neighbor] = new_dist
                     predecessors[neighbor] = node
                     pq.push((new_dist, neighbor))
         return None
-
-    def get_distances(self):
-        try:
-            return self.search(self.graph, self.start, self.goal)[1]
-        except:
-            return None
-
+    
     def get_path(self):
         try:
-            return self.search(self.graph, self.start, self.goal)[0]
+            return self.search(self.graph, self.start, self.goal)
         except:
             return None

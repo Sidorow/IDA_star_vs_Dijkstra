@@ -1,11 +1,18 @@
+import math
 class IDA_star:
+    """
+    IDA* algoritmin implementaatio.
+    Palauttaa listan läpikäydyistä solmuista.
+    Heuristiikkana euklidinen etäisyys solmusta maalisolmuun.
+    """
+    
     def __init__(self, graph, coords, start, goal):
         self.graph = graph
         self.coords = coords
         self.start = start
         self.goal = goal
-        self.heuristic = lambda node, goal: ((coords[node][0] - coords[goal][0])**2 + (coords[node][1] - coords[goal][1])**2)**0.5
-
+        self.heuristic = lambda node, goal: math.dist(self.coords[node], self.coords[goal])
+    
     def ida_star(self, graph, start, goal):
         bound = self.heuristic(start, goal)
         while True:
@@ -27,7 +34,7 @@ class IDA_star:
         min_path = None
         for neighbor, cost in graph[node].items():
             new_path = path + [neighbor]
-            val, t_path = self.search(graph, neighbor, goal, distance+cost, bound, new_path)
+            val, t_path = self.search(graph, neighbor, goal, distance+cost['weight'], bound, new_path)
             if val < 0:
                 return val, t_path
             elif val < min_val:
@@ -40,6 +47,3 @@ class IDA_star:
             return self.ida_star(self.graph, self.start, self.goal)[1]
         except:
             return None
-
-    def get_total_cost(self):
-        return self.ida_star(self.graph, self.start, self.goal)[0]

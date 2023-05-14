@@ -1,5 +1,5 @@
 import unittest
-from heap import MinHeap
+from util.heap import MinHeap
 
 class TestHeap(unittest.TestCase):
     def setUp(self):
