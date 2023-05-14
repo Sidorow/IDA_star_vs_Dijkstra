@@ -1,9 +1,9 @@
+import statistics
+import time
 from Dijkstra import Dijkstra
 from IDA_star import IDA_star
 from util.graphGen import graphGen
 from util.analysis import Analysis
-import statistics
-import time
 
 class UI:
     def __init__(self):
@@ -53,26 +53,26 @@ class UI:
             coords = self.graphgen.get_coords()
             dijkstra = Dijkstra(graph, self.start, self.goal)
             ida = IDA_star(graph, coords, self.start, self.goal)
-            
-            D_start = time.time()
-            path_D = dijkstra.get_path()
-            D_end = time.time()
-            
-            IDA_start = time.time()
-            path_IDA = ida.get_path()
-            IDA_end = time.time()
-            
-            D_time = D_end - D_start
-            IDA_time = IDA_end - IDA_start
-            
-            print(f"\nTime taken with Dijkstra = {D_time}")
-            print(f"Time taken with IDA* = {IDA_time}")
-            print(f"\nShortest path between {self.start} and {self.goal}:\n{path_D}\n")
-            self.means.append((D_time,IDA_time))
-            self.graphgen.gen_graph_plot(path_IDA)
+
+            d_start = time.time()
+            path_d = dijkstra.get_path()
+            d_end = time.time()
+
+            ida_start = time.time()
+            path_ida = ida.get_path()
+            ida_end = time.time()
+
+            d_time = d_end - d_start
+            ida_time = ida_end - ida_start
+
+            print(f"\nTime taken with Dijkstra = {d_time}")
+            print(f"Time taken with IDA* = {ida_time}")
+            print(f"\nShortest path between {self.start} and {self.goal}:\n{path_d}\n")
+            self.means.append((d_time,ida_time))
+            self.graphgen.gen_graph_plot(path_ida)
         except:
             print("No path")
-    
+
     def times(self):
         try:
             d_times, ida_times = zip(*self.means)
@@ -81,11 +81,11 @@ class UI:
             print(f"\nAverage times of Dijkstra: {mean_d}\nAverage times of IDA*: {mean_ida}\n")
         except:
             print("Timelist is empty!")
-        
+
     def clear(self):
         self.means.clear()
         print("Timelist cleared")
-    
+
     def compare(self):
         list1, list2 = self.analyze.comparison()
         for times, nodes in zip(list1, list2):
@@ -97,9 +97,8 @@ class UI:
             cmd = input("Input command, 'exit' to close, 'help' for a list of commands" + "\n")
             if cmd == "exit":
                 break
-            elif cmd in self.commands:
+            if cmd in self.commands:
                 func = f"self.{cmd}()"
                 exec(func)
             else:
                 print("Not a command")
-    

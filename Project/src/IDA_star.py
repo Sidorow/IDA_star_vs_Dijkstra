@@ -5,21 +5,21 @@ class IDA_star:
     Palauttaa listan läpikäydyistä solmuista.
     Heuristiikkana euklidinen etäisyys solmusta maalisolmuun.
     """
-    
+
     def __init__(self, graph, coords, start, goal):
         self.graph = graph
         self.coords = coords
         self.start = start
         self.goal = goal
         self.heuristic = lambda node, goal: math.dist(self.coords[node], self.coords[goal])
-    
+
     def ida_star(self, graph, start, goal):
         bound = self.heuristic(start, goal)
         while True:
             distance, path = self.search(graph, start, goal, 0, bound, [start])
             if distance == float('inf'):
                 return -1, None
-            elif distance < 0:
+            if distance < 0:
                 return -distance, path
             else:
                 bound = distance
@@ -37,7 +37,7 @@ class IDA_star:
             val, t_path = self.search(graph, neighbor, goal, distance+cost['weight'], bound, new_path)
             if val < 0:
                 return val, t_path
-            elif val < min_val:
+            if val < min_val:
                 min_val = val
                 min_path = new_path
         return min_val, min_path

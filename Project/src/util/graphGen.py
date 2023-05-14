@@ -7,9 +7,9 @@ from scipy.spatial import Delaunay
 class graphGen:
     """
     Vastaa satunnaisen verkon generoinnista.
-    Saa parametrinä haluttujen solmujen määrän. 
+    Saa parametrinä haluttujen solmujen määrän.
     """
-    
+
     def __init__(self, nodes):
         self.nodes = nodes
         self.nx_graph = nx.DiGraph()
@@ -18,14 +18,14 @@ class graphGen:
 
     def get_graph(self):
         return nx.to_dict_of_dicts(self.nx_graph)
-    
+
     def get_coords(self):
         return self.coords
-    
+
     def euclidean_distance(self, coord1, coord2):
         """
         Laskee kahden solmun euklidisen etäisyyden.
-         
+
         Args:
             coord1: ensimmäisen solmun koordinaatit
             coord2: toisen solmun koordinaatit
@@ -33,28 +33,28 @@ class graphGen:
         Returns:
             Float: matka solmujen välillä
         """
-        
+
         return math.dist(coord1, coord2)
 
     def gen_weights(self, coords):
         """
         Generoi solmujen kaarten painot
-        laskemalla niiden suorat etäisyydet toisistaan 
-        
+        laskemalla niiden suorat etäisyydet toisistaan
+
         Args:
             coords: jokaisen solmun koordinaatit tuple -muodossa.
         """
-        
+
         for node, neighbor in self.nx_graph.edges:
             weight = self.euclidean_distance(coords[node], coords[neighbor])
             self.nx_graph[node][neighbor]['weight'] = round(weight, 4)
-            
+
     def gen_coordinates(self):
         """
         Ottaa networkx verkon solmujen sijaintien koordinaatit ja asettaa ne
         dictionaryyn tuple -muodossa.
         """
-        
+
         coords = {node: self.pos[node] for node in self.nx_graph.nodes()}
         coord_tuple = {}
         for key, value in coords.items():
@@ -62,15 +62,15 @@ class graphGen:
 
         self.coords = coord_tuple
         self.gen_weights(coord_tuple)
-    
+
     def gen_random_planar_graph(self):
         """
         Generoi satunnaisen planaarisen tasoverkon.
         Solmujen sijainnit satunnaistetaan Delaunay -
         triangulaatiolla, jotta verkko on oikeasti
-        planaarinen. 
+        planaarinen.
         """
-        
+
         self.nx_graph.clear()
         points = np.random.rand(self.nodes, 2)
 
@@ -82,22 +82,22 @@ class graphGen:
             self.nx_graph.add_edge(simplex[0], simplex[1])
             self.nx_graph.add_edge(simplex[1], simplex[2])
             self.nx_graph.add_edge(simplex[2], simplex[0])
-        
+
         self.pos= {i: v for i, v in enumerate(vertices)}
         self.gen_coordinates()
-    
+
     def gen_random_graph(self):
         """
         Generoi täysin satunnaisen verkon.
         Solmut ja niiden väliset kaaret satunnaistetaan
         networkx kirjaston algoritmilla.
         """
-        
+
         self.nx_graph.clear()
         self.nx_graph = nx.fast_gnp_random_graph(self.nodes, 0.2)
         self.pos = nx.random_layout(self.nx_graph)
         self.gen_coordinates()
-    
+
     def gen_graph_plot(self, path):
         """
         Piirtää kuvan ruudulle verkosta ja jos polku on annettu,
@@ -106,7 +106,7 @@ class graphGen:
         Args:
             path: algoritmin palauttama lista läpikäydyistä solmuista
         """
-        
+
         pos = self.pos
 
         try:
@@ -130,4 +130,3 @@ class graphGen:
             nx.draw_networkx_edges(self.nx_graph, pos, edgelist=algo_edges, edge_color='r', width=3) #arrowsize=12)
         nx.draw_networkx_edge_labels(self.nx_graph, pos, edge_labels=labels, font_size=7)
         plt.show()
-    

@@ -5,7 +5,7 @@ class Dijkstra:
     Dijkstran algoritmin implementaatio.
     Palauttaa listan läpikäydyistä solmuista.
     """
-    
+
     def __init__(self, graph, start, goal):
         self.graph = graph
         self.start = start
@@ -35,9 +35,10 @@ class Dijkstra:
                     predecessors[neighbor] = node
                     pq.push((new_dist, neighbor))
         return None
-    
+
     def get_path(self):
         try:
             return self.search(self.graph, self.start, self.goal)
         except:
             return None
+        
