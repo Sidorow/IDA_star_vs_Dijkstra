@@ -15,32 +15,41 @@ class IDA_star:
 
     def ida_star(self, graph, start, goal):
         bound = self.heuristic(start, goal)
+        path = [start]
         while True:
-            distance, path = self.search(graph, start, goal, 0, bound, [start])
+            distance, path = self.search(graph, start, goal, 0, bound, path)
+            if distance <= 0:
+                return -distance, path
             if distance == float('inf'):
                 return -1, None
-            elif distance < 0:
-                return -distance, path
-            else:
-                bound = distance
+            bound = distance
+
+    def successors(self, node):
+        elements = self.graph[node].keys()
+        sorted_elem = sorted(elements, key=lambda x:
+            self.graph[node][x]['weight'] + self.heuristic(x,self.goal))
+        return sorted_elem
 
     def search(self, graph, node, goal, distance, bound, path):
-        if node == goal:
-            return -distance, path
+        node = path[-1]
         estimate = distance + self.heuristic(node, goal)
         if estimate > bound:
             return estimate, None
+        if node == goal:
+            return -distance, path
         min_val = float('inf')
-        min_path = None
-        for neighbor, cost in graph[node].items():
-            new_path = path + [neighbor]
-            val, t_path = self.search(graph, neighbor, goal, distance+cost['weight'], bound, new_path)
-            if val < 0:
-                return val, t_path
-            elif val < min_val:
-                min_val = val
-                min_path = new_path
-        return min_val, min_path
+
+        for neighbor in self.successors(node):
+            if neighbor not in path:
+                path.append(neighbor)
+                cost = self.graph[node][neighbor]['weight']
+                val, t_path = self.search(graph, neighbor, goal, distance + cost, bound, path)
+                if val < 0:
+                    return val, t_path
+                if val < min_val:
+                    min_val = val
+                path.pop()
+        return min_val, path
 
     def get_path(self):
         try:
